@@ -1,55 +1,52 @@
-#include<bits/stdc++.h>
-
+#include "transaction.h"
 using namespace std;
-
-#define pb push_back
 #define MAX_WEIGHT 4000000
 
-class Transaction {
-	string txn_id;
-	int fee, weight;
-	vector<string> parents;
-	bool added;
-	public: 
-	Transaction(vector<string> str) {
-		txn_id = str[0];
-		fee = stoi(str[1]);
-		weight = stoi(str[2]);
-		if(str.size() > 3) {
-			string last = str[3], word;
-			// cout<<last<<endl;
-			stringstream s(last);
-			while(getline(s, word, ';')) {
-				parents.pb(word);
-			}
-		}
-		added = false;
-	}
+// class Transaction {
+// 	string txn_id;
+// 	int fee, weight;
+// 	vector<string> parents;
+// 	bool added;
+// 	public: 
+// 	Transaction(vector<string> str) {
+// 		txn_id = str[0];
+// 		fee = stoi(str[1]);
+// 		weight = stoi(str[2]);
+// 		if(str.size() > 3) {
+// 			string last = str[3], word;
+// 			// cout<<last<<endl;
+// 			stringstream s(last);
+// 			while(getline(s, word, ';')) {
+// 				parents.pb(word);
+// 			}
+// 		}
+// 		added = false;
+// 	}
 
-	string getTrxId() {
-		return txn_id;
-	}
+// 	string getTrxId() {
+// 		return txn_id;
+// 	}
 
-	int getFee() {
-		return fee;
-	}
+// 	int getFee() {
+// 		return fee;
+// 	}
 
-	int getWeight() {
-		return weight;
-	}
+// 	int getWeight() {
+// 		return weight;
+// 	}
 
-	vector<string> getParents() {
-		return parents;
-	}
+// 	vector<string> getParents() {
+// 		return parents;
+// 	}
 
-	void setAdd() {
-		added = true;
-	}
+// 	void setAdd() {
+// 		added = true;
+// 	}
 
-	bool getAdded() {
-		return added;
-	}
-};
+// 	bool getAdded() {
+// 		return added;
+// 	}
+// };
 
 int curr_weight = 0, curr_fee = 0;
 vector<string> block;
@@ -64,20 +61,6 @@ bool addTrxToBlock (string trxId) {
 	} else {
 		return false;
 	}
-}
-
-bool verifyBlock() {
-	for(int i=0;i<block.size();i++) {
-		auto parents = transactions[block[i]]->getParents();
-		if(parents.size() > 0) {
-			for(string par_trx: parents) {
-				if(find(block.begin(), block.end(), par_trx) > find(block.begin(), block.end(), block[i])) {
-					return false;
-				}
-			}
-		}
-	}
-	return true;
 }
 
 int main() {
@@ -196,12 +179,4 @@ int main() {
 
 	cout<<curr_fee<<" "<<curr_weight<<" "<<block.size()<<endl;
 
-	if(verifyBlock()) {
-		ofstream out;
-		out.open("block_.txt");
-		for(string i: block) {
-			out<<i<<endl;
-		}
-		out.close();
-	}
 }
