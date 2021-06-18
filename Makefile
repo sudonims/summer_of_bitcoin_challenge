@@ -1,13 +1,14 @@
-SRCS = choose_transaction1.cpp
+SRCS = choose_transaction.cpp
 OBJS = $(SRCS: .cpp = .o)
+OUT = choose_transaction
 
 all: $(OBJS)
-	g++ $(OBJS) -o choose_transaction
+	g++ $(OBJS) -o $(OUT)
 	./choose_transaction
 
-.cpp.o:
-	g++ -c $<
+verify: 
+	g++ verify.cpp -o verify
+	./verify
 
 clean:
-	rm *.o
-	rm *~
+	rm $(OUT) verify

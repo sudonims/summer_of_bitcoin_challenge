@@ -38,7 +38,7 @@ int main() {
 	int weight = 0, fee = 0;
 
 	ifstream in;
-	in.open("block_.txt");
+	in.open("block.txt");
 	while(getline(in, line)) {
 		block.pb(line);
 		weight += transactions[line]->getWeight();
