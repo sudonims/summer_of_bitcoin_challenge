@@ -63,26 +63,10 @@ int main() {
 
 		/* checks for parents of current trx */
 		if(parents.size() > 0) {
-			bool flag = false;
-
-			/* Checks if all parents are included in block */
-			for(string par_trx: parents) {
-				if(find(block.begin(), block.end(), par_trx) == block.end()) {
-					flag = true;
-					break;
-				}
-			}
-
-			/* adds the trx to waiting pool if parents not yet added to block else adds trx to the block*/
-			if(flag) {
-				waiting_child[i] = parents;
-			} else {
-				addTrxToBlock(i);
-				transactions[i]->setAdd();
-			}
+			waiting_child[i] = parents;
 		} else {
-			addTrxToBlock(i);
-			transactions[i]->setAdd();
+			if(addTrxToBlock(i))
+				transactions[i]->setAdd();
 		}
 		
 		/* Run a loop through waiting pool */
